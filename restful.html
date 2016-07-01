@@ -1,0 +1,128 @@
+<!--
+  Copyright 2013,2014 IBM Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script src="//cdn.bootcss.com/d3/3.5.17/d3.min.js"></script>
+
+<script type="text/x-red" data-template-name="restful in">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-bookmark"></i> <span>名字</span></label>
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-url"><i class="fa fa-globe"></i> <span>URL</span></label>
+        <input type="text" id="node-input-url">
+    </div>
+    <div class="form-row">
+        <label for="node-input-methods"><i class="fa fa-tasks"></i> <span>方法</span></label>
+        <input type="text" id="node-input-methods">
+    </div>
+    <div class="form-row">
+      <label for="node-input-model"><i class="fa fa-tasks"></i> <span>方法</span></label>
+      <input type="text" id="node-input-model">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="restful in">
+    <p>
+      restful接口输入
+    </p>
+</script>
+
+
+<script type="text/javascript">
+
+    RED.nodes.registerType('restful in', {
+        category: 'input',
+        color: "rgb(218, 196, 180)",
+        defaults: {
+            name: {value: ""},
+            url: {value: ""},
+            methods: {value: "GET,POST,PUT,DELETE"},
+            model: {type: "model", required: true}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "mongodb.png",
+        label: function() {
+            return this.name || this.url || "restful";
+        },
+        labelStyle: function() {
+            return this.name ? "node_label_italic" : "";
+        },
+        oneditsave: function () {
+          console.log(this);
+        }
+    });
+</script>
+
+
+<script type="text/x-red" data-template-name="model">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-bookmark"></i> <span>名字</span></label>
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-alias"><i class="fa fa-globe"></i> <span>别名</span></label>
+        <input type="text" id="node-input-url">
+    </div>
+
+    <p>属性：</p>
+    <div id="model-properties-container" class="form-row">
+      <div class="form-row">
+          <label for="mode-property"><i class="fa fa-tasks"></i> <span>名称</span></label>
+          <input type="text" id="node-input-methods">
+      </div>
+    </div>
+    <div class="form-row">
+      <button id="addModelProperty" type="button" name="button">添加属性</button>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="model">
+    <p>
+      restful接口输入
+    </p>
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('model', {
+        category: 'config',
+        color: "rgb(218, 196, 180)",
+        defaults: {
+            name: {value: ""},
+            alias: {value: ""},
+            properties: {value: ""}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "mongodb.png",
+        label: function() {
+            return this.alias || this.name || "model";
+        },
+        labelStyle: function() {
+            return this.name ? "node_label_italic" : "";
+        }
+    });
+
+    document.getElementById('addModelProperty')
+      .addEventListener(function () {
+        var $div = d3.select('model-properties-container')
+          .append('div')
+          .attr('class', 'form-row');
+        $div.append('label').attr();
+      });
+</script>
